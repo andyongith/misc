@@ -1,0 +1,2 @@
+alias rocku=$(tr "579134628},^evsfoqrstzyw:mucqi" "qwertyuiopAsldfTghjkll/MSzxcvb" <<< "y,}}z2ca328n^yfa2z^caz9.a}}yC8n39n3^ywacO:yfa2z^caz9")
+echo $rocku
