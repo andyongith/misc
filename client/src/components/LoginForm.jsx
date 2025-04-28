@@ -3,15 +3,18 @@ import Button from './Button'
 import handleLogin from '../services/loginsystem'
 
 export default function LoginForm({setFormType}) {
-    return <form action={handleLogin}>
-        <h1 className="text-primary font-bold text-3xl text-center m-2">Sign In</h1>
-        <p className="text-center text-sm m-2 text-dark/50 dark:text-light/50">Stay updated on your professional work</p>
+    return <form className='flex flex-col' action={handleLogin}>
+        <h1 className="text-primary font-bold text-3xl text-center">Sign In</h1>
+        <p className="text-center text-sm mt-4 mb-4 text-dark/50 dark:text-light/50">Stay connected, Stay updated</p>
 
-        <Input type="text" name="username" placeholder="Username"></Input>
+        <Input type="text" name="username" placeholder="Username" ></Input>
         <Input type="password" name="password" placeholder="Password"></Input>
-        <Button type="submit">Login</Button>
-        <p onClick={() => setFormType("resetpassword")} className="text-primary text-center m-0 cursor-pointer">Forgot password?</p>
-        <hr className="m-4 w-full bg-dark dark:bg-light" />
-        <Button onClick={() => setFormType("signup")}>Create new account</Button>
+
+        <Button type="submit" className="mt-6">Login</Button>
+        <p onClick={() => setFormType("resetpassword")} className="text-primary text-center mt-1 cursor-pointer font-medium">Forgot password?</p>
+
+        <hr class="mt-4 border-dark dark:border-light"></hr>
+
+        <p className='text-dark dark:text-light text-center mt-8'>Don't have an account? <span className='text-primary font-medium cursor-pointer' onClick={() => setFormType("signup")}>Sign up</span></p>
     </form>
 }

@@ -1,6 +1,6 @@
-export default function Button({ children, ...props }) {
+export default function Button({ children, className = "", type="", ...props }) {
     return <button
-        className="p-2 m-2 rounded-xl w-full text-light bg-primary"
+        className={'p-2 mt-4 w-full text-light bg-primary ' + (type === "submit" ? "rounded-3xl " : "rounded-xl ") + className}
         {...props}
     >
         {children}
