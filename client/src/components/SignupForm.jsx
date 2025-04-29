@@ -1,6 +1,6 @@
+import { useForm } from 'react-hook-form';
 import Input from './Input'
 import Button from './Button'
-import { useState } from 'react';
 import { handleSignup } from '../services/loginsystem';
 
 function SectionHeader({ children, className = "", ...props }) {
@@ -11,9 +11,18 @@ function SectionHeader({ children, className = "", ...props }) {
     </div>
 }
 
-function RaidoButton({ children, value, className = "", src = "", darksrc = "", alt = "", ...props }) {
+function TypeRadioButton({ register, children, value, className = "", src = "", darksrc = "", alt = "", ...props }) {
     return <div>
-        <input type='radio' id={value} name='studentType' value={value} className='peer hidden' />
+        <input
+            type='radio'
+            {...register("usertype", {
+                required: { value: true, message: "usertype is required" }
+            })}
+            id={value}
+            value={value}
+            className='peer hidden'
+        />
+
         <label
             htmlFor={value}
             className={
@@ -27,64 +36,122 @@ function RaidoButton({ children, value, className = "", src = "", darksrc = "", 
     </div>
 }
 
-function Section1({ ...props }) {
+function Section1({ register, ...props }) {
     return <div {...props}>
         <SectionHeader>Create account as</SectionHeader>
 
         <div className='flex justify-around mt-4 text-dark dark:text-light'>
-            <RaidoButton
+            <TypeRadioButton
                 value="student" src="./resources/student_light.svg"
                 darksrc="./resources/student_dark.svg"
                 alt="student"
-            >Student</RaidoButton>
+                register={register}
+            >Student</TypeRadioButton>
 
-            <RaidoButton
+            <TypeRadioButton
                 value="alumnus"
                 src="./resources/alumnus_light.svg"
                 darksrc="./resources/alumnus_dark.svg"
                 alt="alumnus"
-            >Alumnus</RaidoButton>
+                register={register}
+            >Alumnus</TypeRadioButton>
 
-            <RaidoButton
+            <TypeRadioButton
                 value="admin"
                 src="./resources/admin_light.svg"
                 darksrc="./resources/admin_dark.svg"
                 alt="admin"
-            >Admin</RaidoButton>
+                register={register}
+            >Admin</TypeRadioButton>
         </div>
     </div>
 }
 
-function Section2({ ...props }) {
+function Section2({ register, ...props }) {
     return <div {...props}>
         <SectionHeader>Account details</SectionHeader>
 
-        <Input type="text" placeholder="Full Name" required />
-        <Input type="date" placeholder="Date of birth" required />
+        <Input
+            type="text"
+            placeholder="Full Name"
+            {...register("fullname", {
+                required: { value: true, message: "fullname is required" },
+                minLength: { value: 2, message: "fullname must be at least 2 characters long" },
+                maxLength: { value: 100, message: "fullname must be at most 100 characters long" }
+            })}
+        />
+
+        <Input
+            type="date"
+            {...register("dob", {
+                required: { value: true, message: "DOB is required" }
+            })}
+        />
     </div>
 }
 
-function Section3({ ...props }) {
+function Section3({ register, watch, ...props }) {
+    const password = watch("password");
+
     return <div {...props}>
         <SectionHeader>Authentication</SectionHeader>
 
-        <Input type="text" name="username" placeholder="username" required />
-        <Input type="password" name="password" placeholder="password" required />
-        <Input type="password" name="repassword" placeholder="confirm password" required />
+        <Input
+            type="text"
+            placeholder="username"
+            {...register("username", {
+                required: { value: true, message: "username is required" },
+                minLength: { value: 3, message: "username must be at least 3 characters long" },
+                maxLength: { value: 20, message: "username must be at most 20 characters long" }
+            })}
+        />
+
+        <Input
+            type="password"
+            placeholder="password"
+            {...register("password", {
+                required: { value: true, message: "password is required" },
+                minLength: { value: 3, message: "password must be at least 5 characters long" },
+                maxLength: { value: 20, message: "password must be at most 20 characters long" }
+            })}
+        />
+
+        <Input
+            type="password"
+            placeholder="confirm password"
+            {...register("repassword", {
+                required: { value: true, message: "you must confirm your password" },
+                validate: v => (v === password || "passwords did not match")
+            })}
+        />
     </div>
 }
 
 export default function SignupForm() {
-    const [SectionNo, setSectionNo] = useState(1);
-    const incrementSection = () => setSectionNo(SectionNo + 1);
+    const {
+        register,
+        handleSubmit,
+        watch,
+        formState: { errors },
+    } = useForm()
 
-    return <form action={handleSignup}>
+    return <form action={handleSubmit(handleSignup)}>
         <h1 className="text-primary font-bold text-3xl text-center">Sign Up</h1>
 
-        <Section1 />
-        <Section2 />
-        <Section3 />
+        <Section1 register={register} />
+        <Section2 register={register} />
+        <Section3 register={register} watch={watch} />
 
-        <Button type="submit" className='mt-6' onClick={incrementSection}>Submit</Button>
+        {
+            ["usertype", "fullname", "dob", "username", "password", "repassword"].reduce(
+                (initial, current) => <>
+                    {initial}
+                    {errors[current] && <p className='text-accent-red pl-1'>{errors[current].message}</p>}
+                </>,
+                false
+            )
+        }
+
+        <Button type="submit" className='mt-6'>Submit</Button>
     </form>
 }
