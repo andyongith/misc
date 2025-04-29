@@ -81,12 +81,20 @@ function Section2({ register, ...props }) {
             })}
         />
 
-        <Input
-            type="date"
-            {...register("dob", {
-                required: { value: true, message: "DOB is required" }
-            })}
-        />
+        <div className='flex flex-row items-center'>
+            <label className='text-dark dark:text-light text-right pr-4 pt-4 w-full'>
+                Date of Birth
+            </label>
+            <Input
+                type="date"
+                placeholder='DOB: dd/mm/yyyy'
+                {...register("dob", {
+                    required: { value: true, message: "DOB is required" },
+                    valueAsDate: true
+                })}
+                className='dark:bg-light/50'
+            />
+        </div>
     </div>
 }
 
