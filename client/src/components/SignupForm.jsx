@@ -74,10 +74,20 @@ function Section2({ register, ...props }) {
         <Input
             type="text"
             placeholder="Full Name"
-            {...register("fullname", {
+            {...register("name", {
                 required: { value: true, message: "fullname is required" },
                 minLength: { value: 2, message: "fullname must be at least 2 characters long" },
                 maxLength: { value: 100, message: "fullname must be at most 100 characters long" }
+            })}
+        />
+
+        <Input
+            type="text"
+            placeholder="email"
+            {...register("email", {
+                required: { value: true, message: "email is required" },
+                minLength: { value: 2, message: "email must be at least 2 characters long" },
+                maxLength: { value: 100, message: "email must be at most 100 characters long" }
             })}
         />
 
@@ -88,7 +98,7 @@ function Section2({ register, ...props }) {
             <Input
                 type="date"
                 placeholder='DOB: dd/mm/yyyy'
-                {...register("dob", {
+                {...register("dateOfBirth", {
                     required: { value: true, message: "DOB is required" },
                     valueAsDate: true
                 })}
@@ -151,7 +161,7 @@ export default function SignupForm() {
         <Section3 register={register} watch={watch} />
 
         {
-            ["usertype", "fullname", "dob", "username", "password", "repassword"].reduce(
+            ["usertype", "name", "email", "dateOfBirth", "username", "password", "repassword"].reduce(
                 (initial, current) => <>
                     {initial}
                     {errors[current] && <p className='text-accent-red pl-1'>{errors[current].message}</p>}
