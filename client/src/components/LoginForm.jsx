@@ -18,11 +18,11 @@ export default function LoginForm({ setFormType }) {
 
         <Input
             type="text"
-            placeholder="Username"
-            {...register("username", {
-                required: { value: true, message: "username is required" },
-                minLength: { value: 3, message: "username must be at least 3 characters long" },
-                maxLength: { value: 20, message: "username must be at most 20 characters long" }
+            placeholder="Username or Email"
+            {...register("identifier", {
+                required: { value: true, message: "username or eamil is required" },
+                minLength: { value: 3, message: "username or email must be at least 3 characters long" },
+                maxLength: { value: 50, message: "username or email must be at most 50 characters long" }
             })}
         ></Input>
 
@@ -35,7 +35,7 @@ export default function LoginForm({ setFormType }) {
         ></Input>
         
         {
-            ["username", "password"].reduce(
+            ["identifier", "password"].reduce(
                 (initial, current) => <>
                     {initial}
                     {errors[current] && <p className='text-accent-red pl-1'>{errors[current].message}</p>}
