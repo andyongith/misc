@@ -2,6 +2,12 @@ import { useForm } from 'react-hook-form';
 import Input from './Input'
 import Button from './Button'
 import { handleSignup } from '../services/loginsystem';
+import admin_dark from '../assets/icons/admin_dark.svg';
+import admin_light from '../assets/icons/admin_light.svg';
+import student_dark from '../assets/icons/student_dark.svg';
+import student_light from '../assets/icons/student_light.svg';
+import alumnus_dark from '../assets/icons/alumnus_dark.svg';
+import alumnus_light from '../assets/icons/alumnus_light.svg';
 
 function SectionHeader({ children, className = "", ...props }) {
     return <div className={'flex items-center  font-semibold mt-7 ' + className} {...props}>
@@ -42,24 +48,25 @@ function Section1({ register, ...props }) {
 
         <div className='flex justify-around mt-4 text-dark dark:text-light'>
             <TypeRadioButton
-                value="student" src="./resources/student_light.svg"
-                darksrc="./resources/student_dark.svg"
+                value="student"
+                src={student_light}
+                darksrc={student_dark}
                 alt="student"
                 register={register}
             >Student</TypeRadioButton>
 
             <TypeRadioButton
                 value="alumnus"
-                src="./resources/alumnus_light.svg"
-                darksrc="./resources/alumnus_dark.svg"
+                src={alumnus_light}
+                darksrc={alumnus_dark}
                 alt="alumnus"
                 register={register}
             >Alumnus</TypeRadioButton>
 
             <TypeRadioButton
                 value="admin"
-                src="./resources/admin_light.svg"
-                darksrc="./resources/admin_dark.svg"
+                src={admin_light}
+                darksrc={admin_dark}
                 alt="admin"
                 register={register}
             >Admin</TypeRadioButton>

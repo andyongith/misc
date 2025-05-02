@@ -2,10 +2,11 @@ import { useState } from 'react'
 import LoginForm from '../components/LoginForm'
 import SignupForm from '../components/SignupForm'
 import ResetPassword from '../components/ResetPasswords';
+import back_arrow from '../assets/icons/back_arrow.svg'
 
 function BackButton({ action, children, className = "", ...props }) {
     return <img
-        src="./resources/back_arrow.svg"
+        src={back_arrow}
         alt="back"
         onClick={action}
         className={'cursor-pointer bg-primary/10 p-2 rounded-xl absolute top-5 left-5 ' + className}
