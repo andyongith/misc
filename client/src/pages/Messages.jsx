@@ -1,7 +1,7 @@
 import PageBase from "../components/PageBase";
 
-export default function Universities() {
+export default function Messages() {
     return <PageBase>
-        <h1>Universities</h1>
+        <h1>Messages</h1>
     </PageBase>
 }
