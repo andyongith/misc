@@ -17,7 +17,7 @@ function NavButton({ children, iconsrc = "", iconalt = "icon", className = "", .
 }
 
 export default function SideNavigationBar({ children, ...props }) {
-    return <nav className="fixed flex flex-col bg-primary left-0 mt-2 pt-4 pb-4 pl-2 pr-4 rounded-tr-3xl rounded-br-3xl">
+    return <nav className="fixed flex flex-col bg-primary left-0 mt-20 pt-4 pb-4 pl-2 pr-4 rounded-tr-3xl rounded-br-3xl">
         <Link to='/profile'>
             <NavButton iconsrc={profile_icon} iconalt='profile_icon'></NavButton>
         </Link>
