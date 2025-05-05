@@ -10,3 +10,5 @@
     --color-dark: #010207;
     --color-light: #FEFBF4;
 }
+
+@custom-variant dark (&:where(.dark, .dark *));
