@@ -2,6 +2,8 @@ import { useForm } from 'react-hook-form';
 import Input from './Input';
 import Button from './Button';
 import { handleLogin } from '../services/loginsystem';
+import { useNavigate } from "react-router";
+
 
 export default function LoginForm({ setFormType }) {
     const {
@@ -10,7 +12,11 @@ export default function LoginForm({ setFormType }) {
         formState: { errors },
     } = useForm()
 
-    return <form className='flex flex-col' action={handleSubmit(handleLogin)}>
+    const navigate = useNavigate();
+
+    return <form className='flex flex-col' action={
+        handleSubmit((...data) => handleLogin(...data).then(user => navigate("/")))
+    }>
         <h1 className="text-primary font-bold text-3xl text-center">Sign In</h1>
         <p className="text-center text-sm mt-2 mb-4 text-dark/50 dark:text-light/50">
             Stay connected, Stay updated
@@ -33,7 +39,7 @@ export default function LoginForm({ setFormType }) {
                 required: { value: true, message: "Really, an empty password??" },
             })}
         ></Input>
-        
+
         {
             ["identifier", "password"].reduce(
                 (initial, current) => <>
@@ -45,7 +51,7 @@ export default function LoginForm({ setFormType }) {
         }
 
         <Button type="submit" className="mt-6">Login</Button>
-        
+
         <p
             onClick={() => setFormType("resetpassword")}
             className="text-primary text-center mt-1 cursor-pointer font-medium"

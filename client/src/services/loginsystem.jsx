@@ -1,6 +1,7 @@
 async function handleLogin({identifier, password}) {
-    const { message, token, user } = await fetch(`${__API_URL__}/api/v1/auth/login`, {
+    const { message, user } = await fetch(`${__API_URL__}/api/v1/auth/login`, {
         method: "POST",
+        credentials: "include",
         headers: {
             'Content-Type': 'application/json',
         },
@@ -9,13 +10,14 @@ async function handleLogin({identifier, password}) {
             'password': password
         })
     }).then(res => res.json());
-    localStorage.setItem("JWT_TOKEN", token);
-    console.log({user, message});
+    console.log(message);
+    return user;
 }
 
 async function handleSignup({usertype, name, email, dateOfBirth, username, password}) {
-    const { message, token, user } = await fetch(`${__API_URL__}/api/v1/auth/signup`, {
+    const { message, user } = await fetch(`${__API_URL__}/api/v1/auth/signup`, {
         method: "POST",
+        credentials: "include",
         headers: {
             'Content-Type': 'application/json',
         },
@@ -28,8 +30,8 @@ async function handleSignup({usertype, name, email, dateOfBirth, username, passw
             usertype: usertype
         })
     }).then(res => res.json());
-    localStorage.setItem("JWT_TOKEN", token);
-    console.log({user, message});
+    console.log(message);
+    return user;
 }
 
 export {

@@ -6,6 +6,7 @@ import student_dark from '../assets/icons/student_dark.svg';
 import student_light from '../assets/icons/student_light.svg';
 import alumnus_dark from '../assets/icons/alumnus_dark.svg';
 import alumnus_light from '../assets/icons/alumnus_light.svg';
+import { useNavigate } from 'react-router';
 
 function SectionHeader({ children, className = "", ...props }) {
     return <div className={'flex items-center  font-semibold mt-7 ' + className} {...props}>
@@ -150,7 +151,11 @@ export default function SignupForm() {
         formState: { errors },
     } = useForm()
 
-    return <form action={handleSubmit(handleSignup)}>
+    const navigate = useNavigate();
+
+    return <form action={
+        handleSubmit((...data) => handleSignup(...data).then(user => navigate("/")))
+    }>
         <h1 className="text-primary font-bold text-3xl text-center">Sign Up</h1>
 
         <Section1 register={register} />
