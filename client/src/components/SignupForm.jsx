@@ -2,8 +2,6 @@ import { useForm } from 'react-hook-form';
 import Input from './Input'
 import Button from './Button'
 import { handleSignup } from '../services/loginsystem';
-import admin_dark from '../assets/icons/admin_dark.svg';
-import admin_light from '../assets/icons/admin_light.svg';
 import student_dark from '../assets/icons/student_dark.svg';
 import student_light from '../assets/icons/student_light.svg';
 import alumnus_dark from '../assets/icons/alumnus_dark.svg';
@@ -35,8 +33,8 @@ function TypeRadioButton({ register, children, value, className = "", src = "", 
                 'flex flex-col justify-end items-center h-full rounded p-1 peer-checked:outline-1 '
                 + className} {...props}
         >
-            {src !== "" && <img src={src} alt={alt} className='block dark:hidden'></img>}
-            {darksrc !== "" && <img src={darksrc} alt={alt} className='hidden dark:block'></img>}
+            {src !== "" && <img src={src} alt={alt} className='block dark:hidden h-28'></img>}
+            {darksrc !== "" && <img src={darksrc} alt={alt} className='hidden dark:block h-28'></img>}
             {children}
         </label>
     </div>
@@ -62,14 +60,6 @@ function Section1({ register, ...props }) {
                 alt="alumnus"
                 register={register}
             >Alumnus</TypeRadioButton>
-
-            <TypeRadioButton
-                value="admin"
-                src={admin_light}
-                darksrc={admin_dark}
-                alt="admin"
-                register={register}
-            >Admin</TypeRadioButton>
         </div>
     </div>
 }
