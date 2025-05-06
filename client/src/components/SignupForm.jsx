@@ -75,7 +75,11 @@ function Section2({ register, ...props }) {
             {...register("name", {
                 required: { value: true, message: "fullname is required" },
                 minLength: { value: 2, message: "fullname must be at least 2 characters long" },
-                maxLength: { value: 100, message: "fullname must be at most 100 characters long" }
+                maxLength: { value: 100, message: "fullname must be at most 100 characters long" },
+                pattern: {
+                    value: /^[A-Za-z\s]+$/,
+                    message: "name can only contain alphabets and letters"
+                }
             })}
         />
 
@@ -85,7 +89,11 @@ function Section2({ register, ...props }) {
             {...register("email", {
                 required: { value: true, message: "email is required" },
                 minLength: { value: 2, message: "email must be at least 2 characters long" },
-                maxLength: { value: 100, message: "email must be at most 100 characters long" }
+                maxLength: { value: 100, message: "email must be at most 100 characters long" },
+                pattern: {
+                    value: /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/,
+                    message: "Invalid Email"
+                }
             })}
         />
 
@@ -98,7 +106,15 @@ function Section2({ register, ...props }) {
                 placeholder='DOB: dd/mm/yyyy'
                 {...register("dateOfBirth", {
                     required: { value: true, message: "DOB is required" },
-                    valueAsDate: true
+                    valueAsDate: true,
+                    validate: (value) => {
+                        const date = new Date(value);
+                        const now = new Date();
+                        const age = now.getFullYear() - date.getFullYear();
+                        if (date > now) return "DOB cannot be in the future";
+                        if (age < 0 || age > 150) return "Please enter a realistic DOB";
+                        return true;
+                    }
                 })}
                 className='dark:bg-light/50'
             />
@@ -118,7 +134,11 @@ function Section3({ register, watch, ...props }) {
             {...register("username", {
                 required: { value: true, message: "username is required" },
                 minLength: { value: 3, message: "username must be at least 3 characters long" },
-                maxLength: { value: 20, message: "username must be at most 20 characters long" }
+                maxLength: { value: 20, message: "username must be at most 20 characters long" },
+                pattern: {
+                    value: /^[a-zA-Z0-9._]{3,20}$/,
+                    message: "Username can only be letters, numbers, . or underscores"
+                }
             })}
         />
 
@@ -127,8 +147,8 @@ function Section3({ register, watch, ...props }) {
             placeholder="password"
             {...register("password", {
                 required: { value: true, message: "password is required" },
-                minLength: { value: 3, message: "password must be at least 5 characters long" },
-                maxLength: { value: 20, message: "password must be at most 20 characters long" }
+                minLength: { value: 6, message: "password is too small" },
+                maxLength: { value: 50, message: "password must be at most 50 characters long" }
             })}
         />
 
@@ -172,6 +192,6 @@ export default function SignupForm() {
             )
         }
 
-        <Button type="submit" className='mt-6'>Submit</Button>
+        <Button type="submit" className='mt-6 cursor-pointer'>Submit</Button>
     </form>
 }
