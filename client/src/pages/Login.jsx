@@ -19,6 +19,8 @@ function BackButton({ action, children, className = "", ...props }) {
 export default function Login() {
     const [formtype, setFormType] = useState('login');
 
+    fetch(`${import.meta.env.VITE_API_URL}/api/v1/auth/logout`);
+
     return <div className='
         flex justify-center items-center w-screen min-h-screen h-fit bg-primary/15
         dark:bg-dark/90 pb-10

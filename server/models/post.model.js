@@ -18,6 +18,10 @@ const postSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
     }],
+    dislikes: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+    }],
     comments: [{
         content: String,
         user: {
@@ -29,7 +33,7 @@ const postSchema = new mongoose.Schema({
             default: Date.now,
         },
     }],
-},{
+}, {
     timestamps: true,
 });
 

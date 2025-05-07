@@ -15,7 +15,7 @@ export default function PageBase({ children, className = "", ...props }) {
     ">
         <Header className="" />
         <SideNavigationBar />
-        <div className={"p-4 " + className} {...props}>
+        <div className={"p-4 w-full max-w-[1100px] pb-20 " + className} {...props}>
             {children}
         </div>
     </div>
